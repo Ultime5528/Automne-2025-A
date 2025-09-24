@@ -5,18 +5,8 @@ import commands2
 import wpilib
 from commands2.button import CommandXboxController
 
-from commands.autonomous.autourgence import AutoUrgence
-from commands.autonomous.avancerx import AvancerX
-from commands.autonomous.tournerx import TournerX
-from commands.autonomous.urgence import BougerUrgence
 from commands.drive import Drive
-from commands.extend import ExtendStrong
-from commands.launch import Launch
-from commands.movearm import MoveArm
-from commands.resetarm import ResetProtocol
-from subsystems.arm import Arm
 from subsystems.drivetrain import Drivetrain
-from subsystems.launcher import Launcher
 
 
 class Robot(commands2.TimedCommandRobot):
@@ -29,8 +19,6 @@ class Robot(commands2.TimedCommandRobot):
         self.xboxremote = CommandXboxController(0)
         self.stick = commands2.button.CommandJoystick(1)
 
-        self.arm = Arm()
-        self.launcher = Launcher()
         self.drivetrain = Drivetrain()
         self.drivetrain.setDefaultCommand(Drive(self.drivetrain, self.xboxremote))
 
@@ -41,14 +29,13 @@ class Robot(commands2.TimedCommandRobot):
 
         wpilib.SmartDashboard.putData("AvancerX", AvancerX(self.drivetrain, 0.5, 0.75))
         wpilib.SmartDashboard.putData("TournerX", TournerX(self.drivetrain, 0.5, 0.75))
-        wpilib.SmartDashboard.putData("ExtendStrong", ExtendStrong(self.launcher))
 
         self.setupButtons()
 
     #copilote
 
     def setupButtons(self):
-        self.stick.button(1).onTrue(Launch(self.launcher))
+        pass
         #self.xboxremote.button(1).onTrue(BougerUrgence(self.drivetrain, 0.4, 1.2, 0.5))
         #self.stick.button(8).onTrue(ResetProtocol(self.arm))
         #self.stick.button(5).onTrue(MoveArm.toLevel1(self.arm))
