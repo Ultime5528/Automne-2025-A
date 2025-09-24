@@ -25,11 +25,6 @@ class Robot(commands2.TimedCommandRobot):
         self.autoChooser = wpilib.SendableChooser()
         self.autoCommand: Optional[commands2.CommandBase] = None
 
-        self.autoChooser.addOption("AutoBasic", BougerUrgence(self.drivetrain, 0.5, 1.2, 0))
-
-        wpilib.SmartDashboard.putData("AvancerX", AvancerX(self.drivetrain, 0.5, 0.75))
-        wpilib.SmartDashboard.putData("TournerX", TournerX(self.drivetrain, 0.5, 0.75))
-
         self.setupButtons()
 
     #copilote
@@ -55,9 +50,6 @@ class Robot(commands2.TimedCommandRobot):
     def setupDashboard(self):
 
         self.autoCommand = None
-        self.autoChooser.addOption("atterissage", BougerUrgence(self.drivetrain, 0.5, 1.2, 0))
-        self.autoChooser.addOption("autoComplet", AutoUrgence(self.drivetrain, self.launcher))
-            
 
 
 if __name__ == "__main__":
