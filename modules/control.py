@@ -12,7 +12,7 @@ class ControlModule(Module):
         """
         Pilot's buttons
         """
-        #hardware.controller
+        # hardware.controller
 
         """
         Copilot's panel

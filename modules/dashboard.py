@@ -20,12 +20,11 @@ class DashboardModule(Module):
 
     def setupCopilotCommands(self, hardware: HardwareModule):
         pass
-        #putCommandOnDashboard
+        # putCommandOnDashboard
 
     def setupCommands(self, hardware):
         pass
-        #putCommandOnDashboard()
-
+        # putCommandOnDashboard()
 
     def robotInit(self) -> None:
         for subsystem in self._hardware.subsystems:
