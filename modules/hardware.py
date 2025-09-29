@@ -8,5 +8,4 @@ class HardwareModule(Module):
         super().__init__()
         self.controller = commands2.button.CommandXboxController(0)
 
-        self.subsystems: list[Subsystem] = [
-        ]
+        self.subsystems: list[Subsystem] = []
