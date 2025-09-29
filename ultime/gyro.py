@@ -2,13 +2,13 @@ import math
 from abc import ABC, abstractmethod
 
 import hal
-import navx
 import wpilib
 from wpilib.simulation import SimDeviceSim
 from wpimath.geometry import Rotation2d
 from wpiutil import Sendable, SendableBuilder
 
-from utils.property import defaultSetter, autoproperty
+from ultime.autoproperty import autoproperty, defaultSetter
+from ultime.timethis import tt
 
 
 class AbstractSendableMetaclass(type(ABC), type(Sendable)):
@@ -54,6 +54,8 @@ class Gyro(AbstractSendable):
 
 class NavX(Gyro):
     def __init__(self):
+        import navx
+
         self.gyro = navx.AHRS(wpilib.SerialPort.Port.kMXP)
         super().__init__()
         gyro_sim_device = SimDeviceSim("navX-Sensor[1]")
@@ -96,18 +98,32 @@ class ADIS16448(Gyro):
 
 class ADIS16470(Gyro):
     pitch_offset = autoproperty(4.1)
+
     def __init__(self):
-        self.gyro = wpilib.ADIS16470_IMU()
+        self.gyro = wpilib.ADIS16470_IMU(
+            wpilib.ADIS16470_IMU.IMUAxis.kY,  # kZ
+            wpilib.ADIS16470_IMU.IMUAxis.kZ,  # kX
+            wpilib.ADIS16470_IMU.IMUAxis.kX,  # kY
+        )
         super().__init__()
+        self.gyro.getPitchAxis()
         gyro_sim_device = SimDeviceSim("Gyro:ADIS16470[0]")
-        self._gyro_sim_angle = gyro_sim_device.getDouble("gyro_angle_z")
-        self._gyro_sim_pitch = gyro_sim_device.getDouble("gyro_angle_y")
+        self._gyro_sim_angle = gyro_sim_device.getDouble(
+            "gyro_angle_" + self.gyro.getYawAxis().name[-1].lower()
+        )
+        self._gyro_sim_pitch = gyro_sim_device.getDouble(
+            "gyro_angle_" + self.gyro.getPitchAxis().name[-1].lower()
+        )
 
     def getAngle(self):
-        return math.remainder(self.gyro.getAngle(), 360.0)
+        return math.remainder(
+            self.gyro.getAngle(wpilib.ADIS16470_IMU.IMUAxis.kYaw), 360.0
+        )
 
     def getPitch(self):
-        return math.remainder(self.gyro.getYComplementaryAngle() + self.pitch_offset, 360.0)
+        return math.remainder(
+            self.gyro.getYComplementaryAngle() + self.pitch_offset, 360.0
+        )
 
     def setSimAngle(self, angle: float):
         self._gyro_sim_angle.set(angle)
@@ -118,6 +134,28 @@ class ADIS16470(Gyro):
     def calibrate(self):
         if wpilib.RobotBase.isReal():
             self.gyro.calibrate()
+
+    def initSendable(self, builder: SendableBuilder) -> None:
+        super().initSendable(builder)
+
+        def noop(_):
+            pass
+
+        builder.addFloatProperty(
+            "raw_yaw",
+            tt(lambda: self.gyro.getAngle(wpilib.ADIS16470_IMU.IMUAxis.kYaw)),
+            noop,
+        )
+        builder.addFloatProperty(
+            "raw_pitch",
+            tt(lambda: self.gyro.getAngle(wpilib.ADIS16470_IMU.IMUAxis.kPitch)),
+            noop,
+        )
+        builder.addFloatProperty(
+            "raw_roll",
+            tt(lambda: self.gyro.getAngle(wpilib.ADIS16470_IMU.IMUAxis.kRoll)),
+            noop,
+        )
 
 
 class ADXRS(Gyro):
@@ -145,8 +183,12 @@ class Empty(Gyro):
     def __init__(self):
         super().__init__()
         self._device = hal.SimDevice("Empty-Gyro")
-        self._gyro_sim_angle = self._device.createDouble("yaw", hal.SimValueDirection.HAL_SimValueOutput, 0)
-        self._gyro_sim_pitch = self._device.createDouble("pitch", hal.SimValueDirection.HAL_SimValueOutput, 0)
+        self._gyro_sim_angle = self._device.createDouble(
+            "yaw", hal.SimValueDirection.HAL_SimValueOutput, 0
+        )
+        self._gyro_sim_pitch = self._device.createDouble(
+            "pitch", hal.SimValueDirection.HAL_SimValueOutput, 0
+        )
         self.angle = 0
         self.pitch = 0
 

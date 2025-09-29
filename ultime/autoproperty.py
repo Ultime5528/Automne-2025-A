@@ -1,23 +1,23 @@
-from dataclasses import dataclass
-from enum import Enum
+import contextlib
 import inspect
+import os
+from dataclasses import dataclass
+from enum import Enum, auto
 from typing import Optional, Union, Callable
 
-from ntcore import NetworkTableInstance
 from ntcore.util import ntproperty as _old_ntproperty
 
 
 class PropertyMode(Enum):
-    Dashboard = "Dashboard"
-    ForceDefault = "ForceDefault"
-    LocalOnly = "LocalOnly"
+    Dashboard = auto()
+    Local = auto()
 
 
 @dataclass
 class AutopropertyCall:
     key: str
     filename: str
-    line_no: int
+    lineno: int
     col_offset: int
 
 
@@ -40,15 +40,14 @@ def defaultSetter(value):
 
 
 def autoproperty(
-        default_value,
-        key: Optional[str] = None,
-        table: Optional[str] = None,
-        subtable: Optional[str] = _DEFAULT_CLASS_NAME,
-        full_key: Optional[str] = None,
-        write: Optional[bool] = None
+    default_value,
+    key: Optional[str] = None,
+    table: Optional[str] = None,
+    subtable: Optional[str] = _DEFAULT_CLASS_NAME,
+    full_key: Optional[str] = None,
 ):
-    if mode == PropertyMode.LocalOnly:
-        return property(lambda: default_value)
+    if mode == PropertyMode.Local:
+        return property(lambda _: default_value)
 
     assert full_key is None or (key is None and table is None and subtable is None)
 
@@ -78,11 +77,29 @@ def autoproperty(
 
         full_key = table + key
 
-    if mode == PropertyMode.ForceDefault:
-        write = True
-    else:  # PropertyMode.Dashboard, default False (keep saved)
-        write = write if write is not None else False
+    registry.append(
+        AutopropertyCall(
+            full_key,
+            calframe.filename,
+            calframe.positions.lineno,
+            calframe.positions.col_offset,
+        )
+    )
 
-    registry.append(AutopropertyCall(full_key, calframe.filename, calframe.lineno - 1, calframe.index))
+    if isinstance(default_value, int):
+        print(f"{full_key} was converted to double")
+        default_value = float(default_value)
 
-    return _old_ntproperty(full_key, default_value, writeDefault=write, persistent=True)
+    with open(os.devnull, "w") as devnull:
+        with contextlib.redirect_stdout(devnull):
+            prop = _old_ntproperty(
+                full_key, default_value, writeDefault=False, persistent=False
+            )
+
+    def fget(_):
+        val = prop.fget(_)
+        if val is None:
+            return default_value
+        return val
+
+    return property(fget, fset=prop.fset)
