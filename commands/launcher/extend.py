@@ -14,14 +14,13 @@ class Extend(Command):
         self.addRequirements(self.launcher)
 
     def initialize(self):
-        self.timer.reset()
-        self.timer.start()
+        self.timer.restart()
 
     def execute(self):
         self.launcher.extend()
 
     def isFinished(self) -> bool:
-        return self.timer.get() >= self.duration
+        return self.timer.hasElapsed(self.duration)
 
     def end(self, interrupted: bool):
         self.launcher.stop()
