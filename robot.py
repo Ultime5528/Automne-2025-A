@@ -19,9 +19,7 @@ class Robot(ModuleRobot):
         self.enableLiveWindowInTest(False)
 
         self.hardware = HardwareModule()
-
         self.control = ControlModule(self.hardware)
-
         self.dashboard = DashboardModule(self.hardware, self.modules)
         self.logging = LoggingModule()
         self.property_save_checker = PropertySaveCheckerModule()

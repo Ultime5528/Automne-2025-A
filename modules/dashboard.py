@@ -2,6 +2,7 @@ import commands2
 import wpilib
 from commands2 import CommandScheduler
 
+from commands.launcher.launch import Launch
 from modules.hardware import HardwareModule
 from ultime.module import Module, ModuleList
 
@@ -23,8 +24,7 @@ class DashboardModule(Module):
         # putCommandOnDashboard
 
     def setupCommands(self, hardware):
-        pass
-        # putCommandOnDashboard()
+        putCommandOnDashboard("Launcher", Launch(hardware.launcher))
 
     def robotInit(self) -> None:
         for subsystem in self._hardware.subsystems:
