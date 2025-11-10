@@ -11,6 +11,8 @@ class Launcher(Subsystem):
             ports.launcher_piston_forward,
             ports.launcher_piston_backward,
         )
+        self.motor = wpilib.PWMSparkMax(ports.launcher_motor)
+        self.switch = wpilib.DigitalInput(ports.launcher_switch)
         self.addChild("piston", self.piston)
 
     def extend(self):

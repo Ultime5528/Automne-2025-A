@@ -10,4 +10,5 @@ class HardwareModule(Module):
         super().__init__()
         self.controller = commands2.button.CommandXboxController(0)
         self.launcher = Launcher()
+
         self.subsystems: list[Subsystem] = []
