@@ -14,6 +14,8 @@ Order port numbers, ex:
 # CAN
 
 # PWM
+pivot_motor = 0
+drive_motor = 1
 launcher_motor: Final = 0
 
 # DIO

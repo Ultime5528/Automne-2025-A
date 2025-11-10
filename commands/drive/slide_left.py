@@ -4,7 +4,7 @@ from subsystems.drive import Drive
 from ultime.autoproperty import autoproperty
 
 
-class Slide(Command):
+class SlideLeft(Command):
     duration = autoproperty(0.5)
 
     def __init__(self, drive: Drive):

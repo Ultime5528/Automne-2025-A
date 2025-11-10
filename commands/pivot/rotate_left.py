@@ -4,7 +4,7 @@ from subsystems.pivot import Pivot
 from ultime.autoproperty import autoproperty
 
 
-class Rotate(Command):
+class RotateLeft(Command):
     duration = autoproperty(0.5)
 
     def __init__(self, pivot: Pivot):
@@ -17,7 +17,7 @@ class Rotate(Command):
         self.timer.restart()
 
     def execute(self):
-        self.pivot.rotate()
+        self.pivot.rotateLeft()
 
     def isFinished(self) -> bool:
         return self.timer.hasElapsed(self.duration)
