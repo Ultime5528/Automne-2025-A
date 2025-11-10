@@ -14,12 +14,11 @@ Order port numbers, ex:
 # CAN
 
 # PWM
-pivot_motor = 0
-drive_motor = 1
-launcher_motor: Final = 0
+pivot_motor: Final = 0
+drive_motor: Final = 1
+launcher_motor: Final = 2
 
 # DIO
 launcher_switch: Final = 0
 # PCM
-launcher_piston_forward: Final = 0
-launcher_piston_backward: Final =  1
+

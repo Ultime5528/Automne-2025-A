@@ -1,25 +1,26 @@
 import wpilib
+
+from ultime.autoproperty import autoproperty
 from ultime.subsystem import Subsystem
 import ports
 
 
-class Launcher(Subsystem):
+class Laucher(Subsystem):
+    speed_right = autoproperty(0.1)
+    speed_left = autoproperty(-0.1)
+
     def __init__(self):
         super().__init__()
-        self.piston = wpilib.DoubleSolenoid(
-            wpilib.PneumaticsModuleType.CTREPCM,
-            ports.launcher_piston_forward,
-            ports.launcher_piston_backward,
+        self.moteur = wpilib.VictorSP(
+            ports.launcher_motor
         )
-        self.motor = wpilib.PWMSparkMax(ports.launcher_motor)
-        self.switch = wpilib.DigitalInput(ports.launcher_switch)
-        self.addChild("piston", self.piston)
+        self.addChild("moteur", self.moteur)
 
-    def extend(self):
-        self.piston.set(wpilib.DoubleSolenoid.Value.kForward)
+    def rotateRight(self):
+        self.moteur.set(self.speed_right)
 
-    def retract(self):
-        self.piston.set(wpilib.DoubleSolenoid.Value.kReverse)
+    def rotateLeft(self):
+        self.moteur.set(self.speed_left)
 
     def stop(self):
-        self.piston.set(wpilib.DoubleSolenoid.Value.kOff)
+        self.moteur.stopMotor()
