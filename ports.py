@@ -17,6 +17,7 @@ Order port numbers, ex:
 pivot_motor: Final = 0
 drive_motor: Final = 1
 launcher_motor: Final = 2
+servo : Final = 3
 
 # DIO
 launcher_switch: Final = 0

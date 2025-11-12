@@ -8,7 +8,7 @@ from commands.pivot.rotate_right import RotateRight
 from commands.drive.slide_left import SlideLeft
 from commands.drive.slide_right import SlideRight
 from commands.spool.turn_left import RollLeft
-from commands.spool.turn_right import RollRight
+from commands.spool.embobinateur import RollRight
 from modules.hardware import HardwareModule
 from subsystems.drive import Drive
 from subsystems.pivot import Pivot
