@@ -5,7 +5,7 @@ from ultime.subsystem import Subsystem
 import ports
 
 
-class Laucher(Subsystem):
+class Spool(Subsystem):
     speed_right = autoproperty(0.1)
     speed_left = autoproperty(-0.1)
 

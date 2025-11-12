@@ -2,11 +2,13 @@ import commands2
 import wpilib
 from commands2 import CommandScheduler
 
-from commands.launcher.launch import Launch
+
 from commands.pivot.rotate_left import RotateLeft
 from commands.pivot.rotate_right import RotateRight
 from commands.drive.slide_left import SlideLeft
 from commands.drive.slide_right import SlideRight
+from commands.spool.turn_left import RollLeft
+from commands.spool.turn_right import RollRight
 from modules.hardware import HardwareModule
 from subsystems.drive import Drive
 from subsystems.pivot import Pivot
@@ -30,11 +32,13 @@ class DashboardModule(Module):
         # putCommandOnDashboard
 
     def setupCommands(self, hardware):
-        putCommandOnDashboard("Launcher", Launch(hardware.launcher))
         putCommandOnDashboard("Pivot-L" , RotateLeft(hardware.pivot))
         putCommandOnDashboard("Pivot-R" , RotateRight(hardware.pivot))
         putCommandOnDashboard("Drive-R", SlideRight(hardware.drive))
         putCommandOnDashboard("Drive-L" , SlideLeft(hardware.drive))
+        putCommandOnDashboard("Bobine-L" , RollLeft(hardware.launcher))
+        putCommandOnDashboard("Bobine-R" , RollRight(hardware.launcher))
+
 
     def robotInit(self) -> None:
         for subsystem in self._hardware.subsystems:
