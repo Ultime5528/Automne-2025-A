@@ -7,8 +7,8 @@ from commands.pivot.rotate_left import RotateLeft
 from commands.pivot.rotate_right import RotateRight
 from commands.drive.slide_left import SlideLeft
 from commands.drive.slide_right import SlideRight
-from commands.spool.turn_left import RollLeft
-from commands.spool.embobinateur import RollRight
+from commands.slingshot.movedown import MoveDown
+from commands.slingshot.moveup import MoveUp
 from modules.hardware import HardwareModule
 from subsystems.drive import Drive
 from subsystems.pivot import Pivot
@@ -34,10 +34,10 @@ class DashboardModule(Module):
     def setupCommands(self, hardware):
         putCommandOnDashboard("Pivot-L" , RotateLeft(hardware.pivot))
         putCommandOnDashboard("Pivot-R" , RotateRight(hardware.pivot))
-        putCommandOnDashboard("Drive-R", SlideRight(hardware.drive))
-        putCommandOnDashboard("Drive-L" , SlideLeft(hardware.drive))
-        putCommandOnDashboard("Bobine-L" , RollLeft(hardware.launcher))
-        putCommandOnDashboard("Bobine-R" , RollRight(hardware.launcher))
+        putCommandOnDashboard("Drive", SlideRight(hardware.drive))
+        putCommandOnDashboard("Drive" , SlideLeft(hardware.drive))
+        putCommandOnDashboard("Slingshot", MoveDown(hardware.slingshot))
+        putCommandOnDashboard("Slingshot", MoveUp(hardware.slingshot))
 
 
     def robotInit(self) -> None:
