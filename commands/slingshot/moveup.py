@@ -1,14 +1,14 @@
-from ports import slingshot_motor
 import wpilib
+
+from ports import slingshot_motor
 from ultime.command import Command
 from subsystems.slingshot import Slingshot
 from ultime.autoproperty import autoproperty
 
-
 class MoveUp(Command):
     def __init__(self, slingshot: Slingshot):
         super().__init__()
-        self.slingshot = slingshot_motor
+        self.slingshot = slingshot
         self.addRequirements(self.slingshot)
 
     def execute(self):

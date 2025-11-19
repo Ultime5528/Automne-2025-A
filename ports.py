@@ -12,12 +12,12 @@ Order port numbers, ex:
 """
 
 # CAN
+drive_motor: Final = 1
+slingshot_motor: Final = 2
 
 # PWM
 pivot_motor: Final = 0
-drive_motor: Final = 1
-slingshot_motor: Final = 2
-slingshot_servo : Final = 3
+slingshot_servo : Final = 1
 
 # DIO
 launcher_switch: Final = 0

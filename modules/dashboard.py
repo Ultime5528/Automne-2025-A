@@ -12,6 +12,8 @@ from commands.slingshot.moveup import MoveUp
 from modules.hardware import HardwareModule
 from subsystems.drive import Drive
 from subsystems.pivot import Pivot
+from commands.slingshot.lock import Lock
+from commands.slingshot.unlock import Unlock
 from ultime.module import Module, ModuleList
 
 
@@ -32,12 +34,14 @@ class DashboardModule(Module):
         # putCommandOnDashboard
 
     def setupCommands(self, hardware):
-        putCommandOnDashboard("Pivot-L" , RotateLeft(hardware.pivot))
-        putCommandOnDashboard("Pivot-R" , RotateRight(hardware.pivot))
+        putCommandOnDashboard("Pivot" , RotateLeft(hardware.pivot))
+        putCommandOnDashboard("Pivot" , RotateRight(hardware.pivot))
         putCommandOnDashboard("Drive", SlideRight(hardware.drive))
         putCommandOnDashboard("Drive" , SlideLeft(hardware.drive))
         putCommandOnDashboard("Slingshot", MoveDown(hardware.slingshot))
         putCommandOnDashboard("Slingshot", MoveUp(hardware.slingshot))
+        putCommandOnDashboard("Slingshot" , Lock(hardware.slingshot))
+        putCommandOnDashboard("Slingshot", Unlock(hardware.slingshot))
 
 
     def robotInit(self) -> None:

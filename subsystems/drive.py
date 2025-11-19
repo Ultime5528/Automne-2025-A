@@ -12,7 +12,7 @@ class Drive(Subsystem):
 
     def __init__(self):
         super().__init__()
-        self.moteur = rev.SparkMax(1, rev.SparkMax.MotorType.kBrushless) # Si branché PWM : wpilib.PWMSparkMax
+        self.moteur = rev.SparkMax(ports.drive_motor, rev.SparkMax.MotorType.kBrushless) # Si branché PWM : wpilib.PWMSparkMax
 
     def rotateLeft(self):
         self.moteur.set(self.speed_left)

@@ -29,5 +29,5 @@ class Robot(ModuleRobot):
             self.control,
             self.dashboard,
             self.logging,
-            self.property_save_checker,
+            # self.property_save_checker,
         )

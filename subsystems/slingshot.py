@@ -1,5 +1,5 @@
 import wpilib
-
+import rev
 from ultime.autoproperty import autoproperty
 from ultime.subsystem import Subsystem
 import ports
@@ -13,10 +13,7 @@ class Slingshot(Subsystem):
 
     def __init__(self):
         super().__init__()
-        self.moteur = wpilib.VictorSP(
-            ports.slingshot_motor
-        )
-        self.addChild("moteur", self.moteur)
+        self.moteur = self.moteur = rev.SparkMax(ports.slingshot_motor, rev.SparkMax.MotorType.kBrushless)
         self.servo = wpilib.Servo(
             ports.slingshot_servo
         )
