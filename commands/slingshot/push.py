@@ -5,22 +5,18 @@ from ultime.command import Command
 from subsystems.slingshot import Slingshot
 from ultime.autoproperty import autoproperty
 
-
-class MoveDown(Command):
-
+class Push(Command):
     def __init__(self, slingshot: Slingshot):
         super().__init__()
         self.slingshot = slingshot
         self.addRequirements(self.slingshot)
 
-
     def execute(self):
-        self.slingshot.moveDown()
+        self.slingshot.push()
 
     def isFinished(self) -> bool:
         return False
 
     def end(self, interrupted: bool):
         self.slingshot.stop()
-
 

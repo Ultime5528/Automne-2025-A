@@ -20,6 +20,8 @@ pivot_motor: Final = 0
 slingshot_servo : Final = 1
 
 # DIO
-launcher_switch: Final = 0
+pivot_switch: Final = 0
+slingshot_switch: Final = 1
+
 # PCM
 

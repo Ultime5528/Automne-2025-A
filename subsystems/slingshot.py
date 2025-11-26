@@ -17,12 +17,13 @@ class Slingshot(Subsystem):
         self.servo = wpilib.Servo(
             ports.slingshot_servo
         )
+        self.switch = wpilib.DigitalInput(ports.slingshot_switch)
         self.addChild("servo" , self.servo)
 
-    def moveUp(self):
+    def push(self):
         self.moteur.set(self.speed_up)
 
-    def moveDown(self):
+    def pull(self):
         self.moteur.set(self.speed_down)
 
     def stop(self):
@@ -33,3 +34,6 @@ class Slingshot(Subsystem):
 
     def unlock(self):
         self.servo.setAngle(self.angle_unlock)
+
+    def isPulled(self) -> bool:
+        return self.switch.get()

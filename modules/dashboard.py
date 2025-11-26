@@ -3,12 +3,12 @@ import wpilib
 from commands2 import CommandScheduler
 
 
-from commands.pivot.rotate_left import RotateLeft
-from commands.pivot.rotate_right import RotateRight
+from commands.pivot.move_up import MoveUp
+from commands.pivot.move_down import MoveDown
 from commands.drive.slide_left import SlideLeft
 from commands.drive.slide_right import SlideRight
-from commands.slingshot.movedown import MoveDown
-from commands.slingshot.moveup import MoveUp
+from commands.slingshot.pull import Pull
+from commands.slingshot.push import Push
 from modules.hardware import HardwareModule
 from subsystems.drive import Drive
 from subsystems.pivot import Pivot
@@ -34,12 +34,12 @@ class DashboardModule(Module):
         # putCommandOnDashboard
 
     def setupCommands(self, hardware):
-        putCommandOnDashboard("Pivot" , RotateLeft(hardware.pivot))
-        putCommandOnDashboard("Pivot" , RotateRight(hardware.pivot))
+        putCommandOnDashboard("Pivot", MoveUp(hardware.pivot))
+        putCommandOnDashboard("Pivot", MoveDown(hardware.pivot))
         putCommandOnDashboard("Drive", SlideRight(hardware.drive))
         putCommandOnDashboard("Drive" , SlideLeft(hardware.drive))
-        putCommandOnDashboard("Slingshot", MoveDown(hardware.slingshot))
-        putCommandOnDashboard("Slingshot", MoveUp(hardware.slingshot))
+        putCommandOnDashboard("Slingshot", Pull(hardware.slingshot))
+        putCommandOnDashboard("Slingshot", Push(hardware.slingshot))
         putCommandOnDashboard("Slingshot" , Lock(hardware.slingshot))
         putCommandOnDashboard("Slingshot", Unlock(hardware.slingshot))
 

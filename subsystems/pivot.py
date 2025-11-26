@@ -14,13 +14,17 @@ class Pivot(Subsystem):
         self.moteur = wpilib.VictorSP(
             ports.pivot_motor
         )
+        self.switch = wpilib.DigitalInput(ports.pivot_switch)
         self.addChild("moteur", self.moteur)
 
-    def rotateRight(self):
+    def moveDown(self):
         self.moteur.set(self.speed_right)
 
-    def rotateLeft(self):
+    def moveUp(self):
         self.moteur.set(self.speed_left)
 
     def stop(self):
         self.moteur.stopMotor()
+
+    def isUp(self) -> bool:
+        return self.switch.get()
