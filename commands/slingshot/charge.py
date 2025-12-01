@@ -18,5 +18,5 @@ class Charge(SequentialCommandGroup):
             Pull(slingshot),
             Lock(slingshot),
             Push(slingshot),
-            Push(slingshot)
+            Push(slingshot),
         )

@@ -24,6 +24,3 @@ class SlideLeft(Command):
 
     def end(self, interrupted: bool):
         self.drive.stop()
-
-
-

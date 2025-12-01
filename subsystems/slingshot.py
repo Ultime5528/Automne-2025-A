@@ -13,12 +13,12 @@ class Slingshot(Subsystem):
 
     def __init__(self):
         super().__init__()
-        self.moteur = self.moteur = rev.SparkMax(ports.slingshot_motor, rev.SparkMax.MotorType.kBrushless)
-        self.servo = wpilib.Servo(
-            ports.slingshot_servo
+        self.moteur = self.moteur = rev.SparkMax(
+            ports.slingshot_motor, rev.SparkMax.MotorType.kBrushless
         )
+        self.servo = wpilib.Servo(ports.slingshot_servo)
         self.switch = wpilib.DigitalInput(ports.slingshot_switch)
-        self.addChild("servo" , self.servo)
+        self.addChild("servo", self.servo)
 
     def push(self):
         self.moteur.set(self.speed_up)

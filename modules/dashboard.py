@@ -37,12 +37,11 @@ class DashboardModule(Module):
         putCommandOnDashboard("Pivot", MoveUp(hardware.pivot))
         putCommandOnDashboard("Pivot", MoveDown(hardware.pivot))
         putCommandOnDashboard("Drive", SlideRight(hardware.drive))
-        putCommandOnDashboard("Drive" , SlideLeft(hardware.drive))
+        putCommandOnDashboard("Drive", SlideLeft(hardware.drive))
         putCommandOnDashboard("Slingshot", Pull(hardware.slingshot))
         putCommandOnDashboard("Slingshot", Push(hardware.slingshot))
-        putCommandOnDashboard("Slingshot" , Lock(hardware.slingshot))
+        putCommandOnDashboard("Slingshot", Lock(hardware.slingshot))
         putCommandOnDashboard("Slingshot", Unlock(hardware.slingshot))
-
 
     def robotInit(self) -> None:
         for subsystem in self._hardware.subsystems:

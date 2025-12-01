@@ -5,6 +5,7 @@ from ultime.command import Command
 from subsystems.slingshot import Slingshot
 from ultime.autoproperty import autoproperty
 
+
 class Push(Command):
     def __init__(self, slingshot: Slingshot):
         super().__init__()
@@ -19,4 +20,3 @@ class Push(Command):
 
     def end(self, interrupted: bool):
         self.slingshot.stop()
-

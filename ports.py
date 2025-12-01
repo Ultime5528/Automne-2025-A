@@ -17,11 +17,10 @@ slingshot_motor: Final = 2
 
 # PWM
 pivot_motor: Final = 0
-slingshot_servo : Final = 1
+slingshot_servo: Final = 1
 
 # DIO
 pivot_switch: Final = 0
 slingshot_switch: Final = 1
 
 # PCM
-

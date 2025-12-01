@@ -1,19 +1,15 @@
-import wpilib
 from ultime.command import Command
 from subsystems.pivot import Pivot
-from ultime.autoproperty import autoproperty
 
 
-class MoveDown(Command):
-    duration = autoproperty(0.5)
-
+class Maintain(Command):
     def __init__(self, pivot: Pivot):
         super().__init__()
         self.pivot = pivot
         self.addRequirements(self.pivot)
 
     def execute(self):
-        self.pivot.moveDown()
+        self.pivot.maintain()
 
     def isFinished(self) -> bool:
         return False
