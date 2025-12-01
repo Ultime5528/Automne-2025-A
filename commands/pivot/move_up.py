@@ -20,5 +20,3 @@ class MoveUp(Command):
 
     def end(self, interrupted: bool):
         self.pivot.stop()
-
-

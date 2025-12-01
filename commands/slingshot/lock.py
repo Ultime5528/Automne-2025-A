@@ -24,4 +24,3 @@ class Lock(Command):
 
     def end(self, interrupted: bool):
         pass
-

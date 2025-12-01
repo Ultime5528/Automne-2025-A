@@ -13,7 +13,6 @@ class Pull(Command):
         self.slingshot = slingshot
         self.addRequirements(self.slingshot)
 
-
     def execute(self):
         self.slingshot.pull()
 
@@ -22,5 +21,3 @@ class Pull(Command):
 
     def end(self, interrupted: bool):
         self.slingshot.stop()
-
-

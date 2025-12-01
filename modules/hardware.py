@@ -1,5 +1,6 @@
 import commands2
 
+from commands.pivot.maintain import Maintain
 from subsystems.drive import Drive
 from subsystems.slingshot import Slingshot
 from subsystems.pivot import Pivot
@@ -13,5 +14,6 @@ class HardwareModule(Module):
         self.controller = commands2.button.CommandXboxController(0)
         self.slingshot = Slingshot()
         self.pivot = Pivot()
+        self.pivot.setDefaultCommand(Maintain(self.pivot))
         self.drive = Drive()
         self.subsystems: list[Subsystem] = []
