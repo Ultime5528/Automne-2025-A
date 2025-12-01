@@ -12,6 +12,8 @@ from commands.slingshot.push import Push
 from modules.hardware import HardwareModule
 from subsystems.drive import Drive
 from subsystems.pivot import Pivot
+from subsystems.slingshot import Slingshot
+from commands.slingshot.charge import Charge
 from commands.slingshot.lock import Lock
 from commands.slingshot.unlock import Unlock
 from ultime.module import Module, ModuleList
@@ -42,6 +44,7 @@ class DashboardModule(Module):
         putCommandOnDashboard("Slingshot", Push(hardware.slingshot))
         putCommandOnDashboard("Slingshot", Lock(hardware.slingshot))
         putCommandOnDashboard("Slingshot", Unlock(hardware.slingshot))
+        putCommandOnDashboard("Slingshot", Charge(hardware.slingshot, hardware.pivot))
 
     def robotInit(self) -> None:
         for subsystem in self._hardware.subsystems:

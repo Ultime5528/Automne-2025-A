@@ -1,5 +1,5 @@
 import wpilib
-from rev import SparkMaxConfig
+from rev import SparkMaxConfig, SparkBase
 
 from ultime.autoproperty import autoproperty
 from ultime.subsystem import Subsystem
@@ -18,7 +18,7 @@ class Drive(Subsystem):
         )  # Si branché PWM : wpilib.PWMSparkMax
         config = SparkMaxConfig()
         config.setIdleMode(SparkMaxConfig.IdleMode.kBrake)
-        self.moteur.configure(config)
+        self.moteur.configure(config, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters)
 
     def rotateLeft(self):
         self.moteur.set(self.speed_left)

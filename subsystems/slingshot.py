@@ -1,5 +1,7 @@
 import wpilib
 import rev
+from wpiutil import SendableBuilder
+
 from ultime.autoproperty import autoproperty
 from ultime.subsystem import Subsystem
 import ports
@@ -36,4 +38,9 @@ class Slingshot(Subsystem):
         self.servo.setAngle(self.angle_unlock)
 
     def isPulled(self) -> bool:
-        return self.switch.get()
+        return not\
+            self.switch.get()
+
+    def initSendable(self, builder: SendableBuilder) -> None:
+        def noop(_): pass
+        builder.addBooleanProperty("isPulled", self.isPulled, noop)

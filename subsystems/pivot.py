@@ -1,4 +1,5 @@
 import wpilib
+from wpiutil import SendableBuilder
 
 from ultime.autoproperty import autoproperty
 from ultime.subsystem import Subsystem
@@ -6,7 +7,7 @@ import ports
 
 
 class Pivot(Subsystem):
-    speed_right = autoproperty(0.3)
+    speed_right = autoproperty(0.1)
     speed_left = autoproperty(-0.3)
     speed_maintain = autoproperty(-0.1)
 
@@ -30,4 +31,8 @@ class Pivot(Subsystem):
         self.moteur.stopMotor()
 
     def isUp(self) -> bool:
-        return self.switch.get()
+        return not self.switch.get()
+
+    def initSendable(self, builder: SendableBuilder) -> None:
+        def noop(_): pass
+        builder.addBooleanProperty("isUp", self.isUp, noop)

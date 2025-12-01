@@ -16,4 +16,9 @@ class HardwareModule(Module):
         self.pivot = Pivot()
         self.pivot.setDefaultCommand(Maintain(self.pivot))
         self.drive = Drive()
-        self.subsystems: list[Subsystem] = []
+
+        self.subsystems: list[Subsystem] = [
+          self.slingshot,
+            self.pivot,
+                self.drive
+        ]
