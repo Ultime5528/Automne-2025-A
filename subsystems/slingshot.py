@@ -6,10 +6,10 @@ import ports
 
 
 class Slingshot(Subsystem):
-    speed_up = autoproperty(0.1)
-    speed_down = autoproperty(-0.1)
-    angle_lock = autoproperty(0.0)
-    angle_unlock = autoproperty(90.0)
+    speed_up = autoproperty(-0.1)
+    speed_down = autoproperty(0.1)
+    angle_lock = autoproperty(85)
+    angle_unlock = autoproperty(47.67)
 
     def __init__(self):
         super().__init__()
