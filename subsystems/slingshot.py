@@ -8,8 +8,8 @@ import ports
 
 
 class Slingshot(Subsystem):
-    speed_up = autoproperty(-0.1)
-    speed_down = autoproperty(0.1)
+    speed_up = autoproperty(-0.6)
+    speed_down = autoproperty(0.6)
     angle_lock = autoproperty(85)
     angle_unlock = autoproperty(47.67)
 

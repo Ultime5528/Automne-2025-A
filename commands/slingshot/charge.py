@@ -15,7 +15,7 @@ from ultime.command import WaitCommand
 
 
 class Charge(SequentialCommandGroup):
-    time_stretch = autoproperty(10)
+    time_stretch = autoproperty(2)
     def __init__(self, slingshot: Slingshot, pivot: Pivot):
         super().__init__(
             MoveUp(pivot).until(lambda: pivot.isUp()),
